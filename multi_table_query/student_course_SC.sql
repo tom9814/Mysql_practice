@@ -86,9 +86,13 @@ select * from emp2 where dept_id = 2;
 
 select * from emp2 where dept_id = (select id from dept where name = '市场部');
 
+#列子查询
+select id from dept where name in ('市场部','财务部');
+select * from emp2 where dept_id in (select id from dept where name in ('市场部','财务部'));
 
-
-
+select salary from emp2 where dept_id = (select id from dept where name = '市场部');
+select * from emp2 where salary > all(select salary from emp2 where dept_id = (select id from dept where name = '市场部'));
+select * from emp2 where salary > any(select salary from emp2 where dept_id = (select id from dept where name = '市场部'));
 
 
 
