@@ -80,6 +80,13 @@ select * from emp2 where salary > 10000
 union
 select * from emp2 where age > 45;
 
+#标量子查询
+select id from dept where name = '市场部';
+select * from emp2 where dept_id = 2;
+
+select * from emp2 where dept_id = (select id from dept where name = '市场部');
+
+
 
 
 
