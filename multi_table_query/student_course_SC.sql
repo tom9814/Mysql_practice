@@ -94,6 +94,11 @@ select salary from emp2 where dept_id = (select id from dept where name = '市�
 select * from emp2 where salary > all(select salary from emp2 where dept_id = (select id from dept where name = '市场部'));
 select * from emp2 where salary > any(select salary from emp2 where dept_id = (select id from dept where name = '市场部'));
 
+#行子查询
+select managerid, dept_id from emp2 where name = '火狗';
+select * from emp2 where (managerid, dept_id) = (select managerid, dept_id from emp2 where name = '火狗');
+
+
 
 
 
