@@ -68,6 +68,19 @@ select  e.* , d.name from emp2 e left join dept d on e.dept_id = d.id;
 
 select d.* , e.* from  emp2 e right join dept d on e.dept_id = d.id;
 
+#自连接
+select e1.name, e2.name  from emp2 e1 left join emp2 e2 on e1.managerid = e2.id;
+
+#联合查询
+select * from emp2 where salary > 10000
+union all
+select * from emp2 where age > 45;
+
+select * from emp2 where salary > 10000
+union
+select * from emp2 where age > 45;
+
+
 
 
 
