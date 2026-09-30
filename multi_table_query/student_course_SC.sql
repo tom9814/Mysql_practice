@@ -48,7 +48,8 @@ insert into emp2(id,name,age,job,salary,entrydate,managerid,dept_id) values
     (3,'小黄',33,'开发',8400,'2000-11-03',2,2),
     (4,'火狗',48,'开发',11000,'2002-02-05',2,2),
     (5,'大黄',43,'开发',10500,'2004-09-07',3,3),
-    (6,'小周',19,'程序员鼓励师',6600,'2004-10-12',2,null);
+    (6,'小周',19,'程序员鼓励师',6600,'2004-10-12',2,null),
+    (7,'皮克曼',55,'项目经理',12500,'2015-12-05',1,1);
 
 alter table emp2 add constraint fk_emp_dept_id foreign key (dept_id) references dept(id);
 
@@ -97,6 +98,13 @@ select * from emp2 where salary > any(select salary from emp2 where dept_id = (s
 #行子查询
 select managerid, dept_id from emp2 where name = '火狗';
 select * from emp2 where (managerid, dept_id) = (select managerid, dept_id from emp2 where name = '火狗');
+
+#表子查询
+select managerid, dept_id from emp2 where name in ('火狗', '杨楚昊');
+select * from emp2 where (managerid,dept_id) in (select managerid, dept_id from emp2 where name in ('火狗', '杨楚昊'));
+
+select * from emp2 where entrydate > '2002-01-01';
+select e.*, d.name from (select * from emp2 where entrydate > '2002-01-01') e left join dept d on e.dept_id = d.id;
 
 
 
