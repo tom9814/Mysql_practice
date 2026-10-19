@@ -32,6 +32,22 @@ insert into emp(id, workno, name, gender, age, idcard, workaddress, entrydate) V
     (8,'00008','Asskiller','男',23,'123456789123456789','东京','2002-01-08');
 
 
+-- 创造修改数据的触发器
+create trigger emp_update_trigger
+    after update on emp for each row
+begin
+    insert into emp_logs(id, operation, operation_time, operation_id, operation_params) values
+    (null,'insert',now(),new.id,
+     concat('原来的数据内容为: id = ',old.id,', workno = ',old.workno,', name = ',old.name,', gender = ',old.gender,', age = ',old.age,', idcard = ', old.idcard,', workaddress = ',old.workaddress,', entrydate = ',old.entrydate,
+                            ' | 更新后的数据内容为: id = ',new.id,', workno = ',new.workno,', name = ',new.name,', gender = ',new.gender,', age = ',new.age,', idcard = ', new.idcard,', workaddress = ',new.workaddress,', entrydate = ',new.entrydate));
+end;
+
+show triggers ;
+
+
+update emp set gender = '女' where name = '潘俊成';
+
+update emp set age = 18 where id <= 3;
 
 
 
