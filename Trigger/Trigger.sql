@@ -49,6 +49,20 @@ update emp set gender = '女' where name = '潘俊成';
 
 update emp set age = 18 where id <= 3;
 
+-- 创造删除数据的触发器
+create trigger emp_delete_trigger
+    after delete on emp for each row
+begin
+    insert into emp_logs(id, operation, operation_time, operation_id, operation_params) values
+    (null,'delete',now(),old.id,
+     concat('删除之前的数据内容为: id = ',old.id,', workno = ',old.workno,', name = ',old.name,', gender = ',old.gender,', age = ',old.age,', idcard = ', old.idcard,', workaddress = ',old.workaddress,', entrydate = ',old.entrydate));
+end;
+
+show triggers ;
+
+drop trigger emp_delete_trigger;
+
+delete from emp where id = 6;
 
 
 
