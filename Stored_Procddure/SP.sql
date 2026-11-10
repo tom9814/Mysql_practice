@@ -161,6 +161,33 @@ end;
 
 call p9(100);
 
+-- cursor
+create procedure p10(in uage int)
+begin
+    declare e_workno varchar(10);
+    declare e_name varchar(10);
+    declare e_cursor cursor for select workno,name from emp where age <= uage;
+    -- 定义handle
+    declare exit handler for SQLSTATE '02000' close e_cursor;
+
+    drop table if exists tb_emp_workno;
+    create table if not exists tb_emp_workno
+    (
+      id int primary key auto_increment,
+      workno varchar(10),
+      name varchar(10)
+    );
+
+    open e_cursor;
+    while true do
+        fetch e_cursor into e_workno,e_name;
+        insert into tb_emp_workno values (null, e_workno,e_name);
+    end while;
+    close e_cursor;
+end;
+
+call p10(18);
+
 
 
 
